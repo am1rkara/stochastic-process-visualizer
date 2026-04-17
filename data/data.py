@@ -4,7 +4,7 @@ import pandas as pd
 
 def fetch_prices(ticker: str, period: str = "2y") -> pd.Series:
     df = yf.download(ticker, period=period, auto_adjust=True, progress=False)
-    return df["Close"].dropna()
+    return df["Close"].squeeze().dropna()
 
 def compute_log_returns(prices: pd.Series) -> pd.Series:
     return np.log(prices / prices.shift(1)).dropna()
